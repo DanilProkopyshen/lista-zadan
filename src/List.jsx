@@ -18,11 +18,11 @@ function List() {
       { id: 10, title: "Zadanie 10", desc: "Wdrożyć na serwer",           completed: true  },
     ];
 
-    setTasks(initialTasks); 
+    setTasks(initialTasks)
     }, [])
 
     return (
-        <div className="container-sm d-inline-flex flex-wrap bg-green-400 mb-2">
+        <div className="list container d-inline-flex flex-wrap py-3 gap-1 rounded">
             {taskList.map(task => <Task key={task.id} {...task} />)}
         </div>
     )

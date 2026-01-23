@@ -7,4 +7,25 @@
   transition: width 0.35s ease;
 }
 
-.bg-green-400 { background-color: #4a9bde !important; }
+.bg-blue-400 { background-color: #4a9bde !important; }
+
+.navbar {
+  background-color: #0F2854;
+}
+
+.list-container {
+  background-color: #1C4D8D;
+}
+
+.list { 
+  width: 100%;
+  background-color: white;
+}
+
+.task { 
+  width: 100%;
+  --bs-card-cap-padding-y: 1px;
+  --bs-card-cap-bg: white;
+  
+}
+

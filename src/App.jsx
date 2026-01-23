@@ -1,14 +1,15 @@
 import List from './List'
-import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import TodoLists from './TodoLists';
-import Sidebar from './Sidebar';
+import { useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import TodoLists from './TodoLists'
+import Sidebar from './Sidebar'
 import Navbar from './Navbar'
+import { auth } from './firebase'
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
-  const toggleSidebar = () => setSidebarOpen(prev => !prev);
+  const toggleSidebar = () => setSidebarOpen(prev => !prev)
 
   return (
     <div className="container-fluid vh-100 p-0">
@@ -26,7 +27,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default App

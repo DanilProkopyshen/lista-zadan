@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 function Navbar({ isSidebarOpen, onToggleSidebar }) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container-fluid">
         {/* Toggle button – only shown when sidebar is closed */}
         {!isSidebarOpen && (
@@ -21,13 +21,14 @@ function Navbar({ isSidebarOpen, onToggleSidebar }) {
           Todo App
         </a>
       </div>
+      
     </nav>
-  );
+  )
 }
 
 Navbar.propTypes = {
   isSidebarOpen: PropTypes.bool.isRequired,
   onToggleSidebar: PropTypes.func.isRequired,
-};
+}
 
-export default Navbar;
+export default Navbar
