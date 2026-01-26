@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { auth } from './firebase'
+import AuthOptions from './AccountMenus/AuthOptions'
+import AuthAccordion from './AccountMenus/AuthAccordion'
 
 function Sidebar({ isOpen, onClose }) {
-  
   return (
     <div
       id="sidebar"
@@ -20,22 +22,7 @@ function Sidebar({ isOpen, onClose }) {
             <a href="#" className="nav-link text-white">Ważne</a>
           </li>
           <li className="nav-item">
-            <div className="accordion accordion-flush" id="accordionFlushExample">
-              <div className="accordion-item">
-                <h2 className="accordion-header">
-                  <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Konto
-                  </button>
-                </h2>
-                <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                  <div className="accordion-body">
-                    {
-                      //Zaloguj sie lub zobacz konto
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
+            <AuthAccordion />
           </li>
         </ul>
 
