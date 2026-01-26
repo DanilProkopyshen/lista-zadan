@@ -22,8 +22,18 @@ function List() {
     }, [])
 
     return (
-        <div className="list container d-inline-flex flex-wrap py-3 gap-1 rounded">
-            {taskList.map(task => <Task key={task.id} {...task} />)}
+        <div className="list rounded px-2">
+            <div className="list-options pt-3 px-3">
+                <h3>Cool list</h3>
+                
+            </div>
+            <div className="list-content container d-inline-flex flex-wrap py-3 gap-1">
+                {taskList.map(task => <Task key={task.id} {...task} />)}
+                {
+                    (<div className="tasks-todo"></div>)
+                }
+            </div>
+            
         </div>
     )
 }
