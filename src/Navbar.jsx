@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function AppNavbar({ isSidebarOpen, onToggleSidebar }) {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
-        {/* Toggle button – only shown when sidebar is closed */}
         {!isSidebarOpen && (
           <Button
             variant="outline-light"
@@ -21,7 +21,7 @@ function AppNavbar({ isSidebarOpen, onToggleSidebar }) {
           </Button>
         )}
 
-        <Navbar.Brand href="#">Todo App</Navbar.Brand>
+        <Navbar.Brand href="#">Listy zadań</Navbar.Brand>
       </Container>
     </Navbar>
   )
