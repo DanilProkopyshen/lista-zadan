@@ -58,7 +58,7 @@ function RegisterModal() {
 
   return (
     <>
-      <Button variant="secondary" onClick={handleShow}>
+      <Button variant="secondary mb-3" onClick={handleShow}>
         Zarejestruj się
       </Button>
 

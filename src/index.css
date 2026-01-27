@@ -7,8 +7,6 @@
   transition: width 0.35s ease;
 }
 
-.bg-blue-400 { background-color: #4a9bde !important; }
-
 .navbar {
   background-color: #0F2854;
 }
@@ -29,3 +27,26 @@
   
 }
 
+#transparentAccordion .accordion-button.collapsed {
+  background-color: transparent;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+#transparentAccordion .accordion-button {
+  background-color: transparent;
+  box-shadow: none;
+  color: #ffffff;
+}
+
+#transparentAccordion .accordion-button:focus {
+  box-shadow: none;
+}
+
+#transparentAccordion .accordion-button.collapsed::after {
+  filter: invert(1);
+}
+
+#transparentAccordion .accordion-button:not(.collapsed)::after {
+  filter: invert(0.5);
+}

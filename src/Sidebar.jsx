@@ -1,39 +1,44 @@
 import PropTypes from 'prop-types'
-import { getAuth, onAuthStateChanged } from "firebase/auth"
-import { useState, useEffect } from 'react'
-import { auth } from './firebase'
-import AuthOptions from './AccountMenus/AuthOptions'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Button from 'react-bootstrap/Button'
+import Nav from 'react-bootstrap/Nav'
 import AuthAccordion from './AccountMenus/AuthAccordion'
 
 function Sidebar({ isOpen, onClose }) {
   return (
     <div
       id="sidebar"
-      className={`collapse collapse-horizontal ${isOpen ? 'show' : ''}`}
-      style={{ width: '280px', minHeight: '100vh' }}
+      style={{
+        width: isOpen ? '280px' : '0px',
+        transition: 'width 0.3s ease',
+        overflow: 'hidden',
+        minHeight: '100vh',
+      }}
+      className="bg-dark text-white d-flex flex-column"
     >
-      <div className="bg-dark text-white vh-100 p-3 d-flex flex-column">
+      <div className="p-3 d-flex flex-column flex-grow-1">
         <h4 className="mb-4">Opcje</h4>
-        <ul className="nav flex-column">
-          <li className="nav-item">
-            <a href="#" className="nav-link text-white">Wszystkie Zadania</a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="nav-link text-white">Ważne</a>
-          </li>
-          <li className="nav-item">
-            <AuthAccordion />
-          </li>
-        </ul>
 
-        <div className="mt-auto">
-          <button
-            className="btn btn-outline-light w-100"
-            onClick={onClose}
-          >
-            Ukryj
-          </button>
-        </div>
+        <Nav className="flex-column">
+          <Nav.Link href="#" className="text-white px-0">
+            Wszystkie Zadania
+          </Nav.Link>
+          <Nav.Link href="#" className="text-white px-0">
+            Ważne
+          </Nav.Link>
+
+          <div className="mt-2">
+            <AuthAccordion />
+          </div>
+        </Nav>
+
+        <Button
+          variant="outline-light"
+          className="w-100 mt-auto"
+          onClick={onClose}
+        >
+          Ukryj
+        </Button>
       </div>
     </div>
   )

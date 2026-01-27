@@ -1,34 +1,35 @@
 import PropTypes from 'prop-types'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Navbar from 'react-bootstrap/Navbar'
+import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
-function Navbar({ isSidebarOpen, onToggleSidebar }) {
+function AppNavbar({ isSidebarOpen, onToggleSidebar }) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark">
-      <div className="container-fluid">
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container fluid>
         {/* Toggle button – only shown when sidebar is closed */}
         {!isSidebarOpen && (
-          <button
-            className="btn btn-outline-light me-3"
-            type="button"
+          <Button
+            variant="outline-light"
+            className="me-3"
             onClick={onToggleSidebar}
             aria-expanded={isSidebarOpen}
             aria-controls="sidebar"
           >
             ☰ Menu
-          </button>
+          </Button>
         )}
 
-        <a className="navbar-brand" href="#">
-          Todo App
-        </a>
-      </div>
-      
-    </nav>
+        <Navbar.Brand href="#">Todo App</Navbar.Brand>
+      </Container>
+    </Navbar>
   )
 }
 
-Navbar.propTypes = {
+AppNavbar.propTypes = {
   isSidebarOpen: PropTypes.bool.isRequired,
   onToggleSidebar: PropTypes.func.isRequired,
 }
 
-export default Navbar
+export default AppNavbar
