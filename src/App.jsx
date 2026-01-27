@@ -8,6 +8,7 @@ import { auth } from './firebase'
 
 import { ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import AllTasks from './MainBody/TodoLists'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -27,7 +28,7 @@ function App() {
               isSidebarOpen={sidebarOpen}
               onToggleSidebar={toggleSidebar}
             />
-            <TodoLists />
+            <AllTasks />
           </div>
         </div>
       </div>
