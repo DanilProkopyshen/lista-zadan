@@ -8,7 +8,7 @@ import { auth } from './firebase'
 
 import { ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import AllTasks from './MainBody/TodoLists'
+import AllTasks from './MainBody/AllTasks'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)

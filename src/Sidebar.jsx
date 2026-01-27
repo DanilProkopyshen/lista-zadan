@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
-import AuthAccordion from './AccountMenus/AuthAccordion'
+import AuthContainer from './AccountMenus/AuthContainer'
 
 function Sidebar({ isOpen, onClose }) {
   return (
@@ -28,7 +28,7 @@ function Sidebar({ isOpen, onClose }) {
           </Nav.Link>
 
           <div className="mt-2">
-            <AuthAccordion />
+            <AuthContainer />
           </div>
         </Nav>
 
