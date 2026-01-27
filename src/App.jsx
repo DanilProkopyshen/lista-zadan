@@ -1,14 +1,12 @@
-import List from './List'
-import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import TodoLists from './TodoLists'
+import 'react-toastify/dist/ReactToastify.css'
+
+import { useState } from 'react'
+import { ToastContainer} from 'react-toastify'
+
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
-import { auth } from './firebase'
-
-import { ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import AllTasks from './MainBody/AllTasks'
+import MainBody from './MainBody/MainBody'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -28,7 +26,7 @@ function App() {
               isSidebarOpen={sidebarOpen}
               onToggleSidebar={toggleSidebar}
             />
-            <AllTasks />
+            <MainBody />
           </div>
         </div>
       </div>
@@ -40,7 +38,6 @@ function App() {
         draggable
       />
     </>
-    
   )
 }
 

@@ -52,4 +52,4 @@ return (
 );
 }
 
-export default List;
+export default List

@@ -16,7 +16,7 @@ function RegisterModal() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
 
-  const handleClose = () => setShow(false)
+  const handleClose = () => {setShow(false); setEmail(""); setPassword(""); setConfirmPassword(""); setError(""); }
   const handleShow = () => setShow(true)
 
   const validatePassword = (pwd) => {
@@ -47,14 +47,20 @@ function RegisterModal() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
       const user = userCredential.user
       console.log("User registered with UID:", user.uid)
-      handleClose() // close modal on success
+      handleClose()
       toast.success("Rejestracja powiodła się!")
-      // optional: redirect, show success toast, clear form, etc.
     } catch (err) {
       console.error("Registration error:", err.code, err.message)
       setError(err.message || "Registration failed. Please try again.")
     }
-  };
+  }
+
+  const handleReset = () => {
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+    setError("")
+  }
 
   return (
     <>

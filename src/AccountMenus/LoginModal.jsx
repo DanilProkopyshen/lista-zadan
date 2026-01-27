@@ -16,7 +16,7 @@ function LoginModal() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const handleClose = () => setShow(false)
+  const handleClose = () => {setShow(false); setEmail(""); setPassword(""); setError(""); }
   const handleShow = () => setShow(true)
 
   const handleSubmit = async (e) => {
@@ -53,7 +53,7 @@ function LoginModal() {
 
       <Modal
         show={show}
-        onHide={handleClose}
+        onHide={() => { handleClose(); handleReset(); }}
         backdrop="static"
         keyboard={false}
         centered
@@ -101,7 +101,7 @@ function LoginModal() {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => { handleClose(); handleReset(); }}>
             Anuluj
           </Button>
         </Modal.Footer>

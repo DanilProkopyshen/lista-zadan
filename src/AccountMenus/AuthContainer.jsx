@@ -3,7 +3,7 @@ import '../index.css'
 import Accordion from 'react-bootstrap/Accordion'
 import AuthOptions from './AuthOptions'
 
-function AuthAccordion() {
+function AuthContainer() {
   return (
     <Accordion defaultActiveKey="0" flush id="transparentAccordion">
       <Accordion.Item
@@ -22,4 +22,4 @@ function AuthAccordion() {
   )
 }
 
-export default AuthAccordion
+export default AuthContainer

@@ -3,8 +3,26 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
 import AuthContainer from './AccountMenus/AuthContainer'
+import AddList from './AddList'
+
+import { useEffect, useState } from 'react'
+import { auth } from './firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 function Sidebar({ isOpen, onClose }) {
+
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+          setUser(currentUser)
+          setLoading(false)
+      })
+
+      return () => unsubscribe()
+  }, [])
+
   return (
     <div
       id="sidebar"
@@ -20,9 +38,9 @@ function Sidebar({ isOpen, onClose }) {
         <h4 className="mb-4">Opcje</h4>
 
         <Nav className="flex-column">
-          <Nav.Link href="#" className="text-white px-0">
-            Wszystkie Zadania
-          </Nav.Link>
+
+          { user ? (<AddList />) : (null) }
+
           <Nav.Link href="#" className="text-white px-0">
             Ważne
           </Nav.Link>
@@ -30,6 +48,7 @@ function Sidebar({ isOpen, onClose }) {
           <div className="mt-2">
             <AuthContainer />
           </div>
+
         </Nav>
 
         <Button

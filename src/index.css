@@ -11,8 +11,9 @@
   background-color: #0F2854;
 }
 
-.list-container {
+.main-body-container {
   background-color: #1C4D8D;
+  width: 100%;
 }
 
 .list { 
