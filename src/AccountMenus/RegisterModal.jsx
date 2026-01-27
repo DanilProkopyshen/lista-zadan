@@ -1,63 +1,64 @@
-// RegisterModal.jsx
-import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { useState } from "react"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../firebase"
+import { toast } from 'react-toastify'
 
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button"
+import Modal from "react-bootstrap/Modal"
+import Form from "react-bootstrap/Form"
+import FloatingLabel from "react-bootstrap/FloatingLabel"
+import Alert from "react-bootstrap/Alert"
 
 function RegisterModal() {
-  const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(""); // optional: show Firebase errors
+  const [show, setShow] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [error, setError] = useState("")
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   const validatePassword = (pwd) => {
-    const hasLength = pwd.length >= 8;
-    const hasUpper = /[A-Z]/.test(pwd);
-    const hasLower = /[a-z]/.test(pwd);
-    const hasNumber = /\d/.test(pwd);
-    return hasLength && hasUpper && hasLower && hasNumber;
+    const hasLength = pwd.length >= 8
+    const hasUpper = /[A-Z]/.test(pwd)
+    const hasLower = /[a-z]/.test(pwd)
+    const hasNumber = /\d/.test(pwd)
+    return hasLength && hasUpper && hasLower && hasNumber
   };
 
   const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   };
 
-  const isEmailValid = validateEmail(email);
-  const isPasswordValid = validatePassword(password);
-  const passwordsMatch = password === confirmPassword && confirmPassword.length > 0;
+  const isEmailValid = validateEmail(email)
+  const isPasswordValid = validatePassword(password)
+  const passwordsMatch = password === confirmPassword && confirmPassword.length > 0
 
-  const isFormValid = isEmailValid && isPasswordValid && passwordsMatch;
+  const isFormValid = isEmailValid && isPasswordValid && passwordsMatch
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError("")
 
     if (!isFormValid) return;
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      console.log("User registered with UID:", user.uid);
-      handleClose(); // close modal on success
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user
+      console.log("User registered with UID:", user.uid)
+      handleClose() // close modal on success
+      toast.success("Rejestracja powiodła się!")
       // optional: redirect, show success toast, clear form, etc.
     } catch (err) {
-      console.error("Registration error:", err.code, err.message);
-      setError(err.message || "Registration failed. Please try again.");
+      console.error("Registration error:", err.code, err.message)
+      setError(err.message || "Registration failed. Please try again.")
     }
   };
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="secondary" onClick={handleShow}>
         Zarejestruj się
       </Button>
 
@@ -150,7 +151,7 @@ function RegisterModal() {
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }
 
-export default RegisterModal;
+export default RegisterModal
