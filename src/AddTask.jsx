@@ -1,62 +1,59 @@
 import { useState } from "react"
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap"
-import { BsPlus } from "react-icons/bs"
+import { FaCirclePlus } from "react-icons/fa6"
 import { auth, db } from "./firebase"
-import { doc, setDoc, collection, addDoc } from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 
-function AddList() {
+function AddTask({listId}) {
     const [show, setShow] = useState(false)
-    const [listName, setListName] = useState("")
+
+    const [taskName, setTaskName] = useState("")
+    const [taskDesc, setTaskDesc] = useState("")
+    const [important, setImportant] = useState(false)
+
     const [validated, setValidated] = useState(false)
 
     const handleClose = () => {
         setShow(false)
-        setListName("")
+        setTaskName("")
+        setTaskDesc("")
+        setImportant(false)
         setValidated(false)
     }
+
     const handleShow = () => setShow(true)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!listName.trim()) {
+        if (!taskName.trim()) {
             setValidated(true)
             return
         }
 
         try {
-            const userId = auth.currentUser.uid;
+            const userId = auth.currentUser.uid
 
-            const userRef = doc(db, "users", userId)
-            await setDoc(
-                userRef,
-                { email: auth.currentUser.email },
-                { merge: true }
-            )
-
-            const listsCollection = collection(db, "users", userId, "lists")
-            const newListRef = await addDoc(listsCollection, {
-                name: listName,
+            const tasksCollection = collection(db, "users", userId, "lists", listId, "tasks")
+            const newTaskRef = await addDoc(tasksCollection, {
+                name: taskName,
+                description: taskDesc,
+                important: important,
+                completed: false,
             })
 
-            console.log("List created with ID:", newListRef.id)
+            console.log("Task created with ID:", newTaskRef.id)
 
             handleClose()
         } catch (error) {
-            console.error("Error creating list:", error)
-        } 
+            console.error("Error creating task:", error)
+        }
+
     }
 
     return (
         <>
-            <Button 
-                variant="primary" 
-                className="w-100 d-flex align-items-center justify-content-center"
-                onClick={handleShow}
-            >
-                <BsPlus className="me-2" />
-                Utwórz listę
-            </Button>
+            <FaCirclePlus size={30} title="Dodaj zadanie" onClick={handleShow}/>
 
             <Modal
                 show={show}
@@ -66,7 +63,7 @@ function AddList() {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Dodaj nową listę</Modal.Title>
+                    <Modal.Title>Dodaj nowe zadanie</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -80,18 +77,31 @@ function AddList() {
                                 type="text"
                                 maxLength={15}
                                 placeholder="lista"
-                                value={listName}
-                                onChange={(e) => setListName(e.target.value)}
-                                isInvalid={validated && !listName.trim()}
+                                value={taskName}
+                                onChange={(e) => setTaskName(e.target.value)}
+                                isInvalid={validated && !taskName.trim()}
                             />
                             <Form.Control.Feedback type="invalid">
                                 Nazwa nie może być pusta
                             </Form.Control.Feedback>
                         </FloatingLabel>
+                        <FloatingLabel
+                            controlId="floatingText"
+                            label="Opis (opcjonalne)"
+                            className="mb-3"
+                        >
+                            <Form.Control
+                                type="text"
+                                maxLength={45}
+                                placeholder="zadanie"
+                                value={taskDesc}
+                                onChange={(e) => setTaskDesc(e.target.value)}
+                            />
+                        </FloatingLabel>
 
                         <div className="d-grid">
                             <Button variant="primary" type="submit" size="lg">
-                                Stwórz listę
+                                Dodaj zadanie
                             </Button>
                         </div>
                     </Form>
@@ -107,4 +117,4 @@ function AddList() {
     )
 }
 
-export default AddList
+export default AddTask
