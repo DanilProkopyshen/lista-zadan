@@ -20,7 +20,7 @@ function MainBody() {
 
     if (loading) {
         return (
-            <main className="main-body-container container-fluid vh-100 d-flex justify-content-start align-items-start pt-3">
+            <main className="main-body-container container-fluid vh-100 d-flex justify-content-center align-items-start pt-3">
                 <Spinner animation="border" role="status" variant="light">
                     <span className="visually-hidden">Ładowanie...</span>
                 </Spinner>
@@ -29,7 +29,7 @@ function MainBody() {
     }
 
     else if (!loading && !user) {return (
-        <main className="main-body-container container-fluid vh-100 d-flex justify-content-center align-items-start pt-3">
+        <main className="main-body-container container-fluid vh-100 d-flex justify-content-center align-items-center pt-3">
             <NoAccountBody />
         </main>
     )}

@@ -1,31 +1,8 @@
-.collapse:not(.show) {
-  width: 0 !important;
-  overflow: hidden;
-}
-
-.collapse.show {
-  transition: width 0.35s ease;
-}
-
-.navbar {
-  background-color: #0F2854;
-}
 
 .main-body-container {
-  background-color: #1C4D8D;
+  /*background-color: #1C4D8D;*/
+  background-color: #2463b5;
   width: 100%;
-}
-
-.list { 
-  width: 100%;
-  background-color: white;
-}
-
-.task { 
-  width: 100%;
-  --bs-card-cap-padding-y: 1px;
-  --bs-card-cap-bg: white;
-  
 }
 
 #transparentAccordion .accordion-button.collapsed {

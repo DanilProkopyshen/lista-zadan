@@ -76,6 +76,7 @@ function LoginModal() {
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
               />
             </FloatingLabel>
 
@@ -89,6 +90,7 @@ function LoginModal() {
                 placeholder="Hasło"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
               />
             </FloatingLabel>
 

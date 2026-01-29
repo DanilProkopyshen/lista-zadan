@@ -7,7 +7,7 @@ import { addDoc, collection } from "firebase/firestore"
 function AddTask({listId}) {
     const [show, setShow] = useState(false)
 
-    const [taskName, setTaskName] = useState("")
+    const [taskName, setTaskTitle] = useState("")
     const [taskDesc, setTaskDesc] = useState("")
     const [important, setImportant] = useState(false)
 
@@ -15,7 +15,7 @@ function AddTask({listId}) {
 
     const handleClose = () => {
         setShow(false)
-        setTaskName("")
+        setTaskTitle("")
         setTaskDesc("")
         setImportant(false)
         setValidated(false)
@@ -36,8 +36,8 @@ function AddTask({listId}) {
 
             const tasksCollection = collection(db, "users", userId, "lists", listId, "tasks")
             const newTaskRef = await addDoc(tasksCollection, {
-                name: taskName,
-                description: taskDesc,
+                title: taskName,
+                desc: taskDesc,
                 important: important,
                 completed: false,
             })
@@ -75,11 +75,12 @@ function AddTask({listId}) {
                         >
                             <Form.Control
                                 type="text"
-                                maxLength={15}
+                                maxLength={25}
                                 placeholder="lista"
                                 value={taskName}
-                                onChange={(e) => setTaskName(e.target.value)}
+                                onChange={(e) => setTaskTitle(e.target.value)}
                                 isInvalid={validated && !taskName.trim()}
+                                autoComplete="off"
                             />
                             <Form.Control.Feedback type="invalid">
                                 Nazwa nie może być pusta
@@ -92,10 +93,11 @@ function AddTask({listId}) {
                         >
                             <Form.Control
                                 type="text"
-                                maxLength={45}
-                                placeholder="zadanie"
+                                maxLength={50}
+                                placeholder="opis"
                                 value={taskDesc}
                                 onChange={(e) => setTaskDesc(e.target.value)}
+                                autoComplete="off"
                             />
                         </FloatingLabel>
 

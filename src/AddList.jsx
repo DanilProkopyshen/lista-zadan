@@ -83,6 +83,7 @@ function AddList() {
                                 value={listName}
                                 onChange={(e) => setListName(e.target.value)}
                                 isInvalid={validated && !listName.trim()}
+                                autoComplete="off"
                             />
                             <Form.Control.Feedback type="invalid">
                                 Nazwa nie może być pusta

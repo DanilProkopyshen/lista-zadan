@@ -95,6 +95,7 @@ function RegisterModal() {
                 onChange={(e) => setEmail(e.target.value)}
                 isInvalid={email && !isEmailValid}
                 isValid={email && isEmailValid}
+                autoComplete="off"
               />
               <Form.Control.Feedback type="invalid">
                 Wprowadź poprawny adres email
@@ -113,6 +114,7 @@ function RegisterModal() {
                 onChange={(e) => setPassword(e.target.value)}
                 isInvalid={password && !isPasswordValid}
                 isValid={password && isPasswordValid}
+                autoComplete="off"
               />
               <Form.Control.Feedback type="invalid">
                 Hasło musi zawierać co najmniej 8 znaków, wielką literę, małą literę i cyfrę
@@ -131,6 +133,7 @@ function RegisterModal() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 isInvalid={confirmPassword && !passwordsMatch}
                 isValid={confirmPassword && passwordsMatch}
+                autoComplete="off"
               />
               <Form.Control.Feedback type="invalid">
                 Hasła nie są identyczne

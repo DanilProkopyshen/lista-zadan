@@ -41,10 +41,6 @@ function Sidebar({ isOpen, onClose }) {
 
           { user ? (<AddList />) : (null) }
 
-          <Nav.Link href="#" className="text-white px-0">
-            Ważne
-          </Nav.Link>
-
           <div className="mt-2">
             <AuthContainer />
           </div>

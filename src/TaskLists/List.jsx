@@ -4,9 +4,11 @@ import Task from "./Task"
 import AddTask from "../AddTask"
 import { auth, db } from "../firebase"
 import { collection, onSnapshot, query } from "firebase/firestore"
+import DeleteList from "../DeleteList"
 
 function List({listId, listName}) {
     const [taskList, setTasks] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
@@ -16,7 +18,6 @@ function List({listId, listName}) {
         const unsubscribe = onSnapshot(
         q, (snapshot) => {
             const updatedTasks = snapshot.docs.map((doc) => {
-                console.log("Task data: ", doc.data())
                 return {
                     id: doc.id,
                     ...doc.data(),
@@ -26,49 +27,90 @@ function List({listId, listName}) {
             const sortedTasks = updatedTasks.sort((a, b) => {
                 return a.completed - b.completed
             })
+
             setTasks(sortedTasks)
+            setLoading(false)
         },
         (error) => {
             console.error("Error in lists listener:", error)
+            setLoading(false)
         })
 
         return () => unsubscribe()
     }, [])
 
-
-    return (
-        <Container className="py-4">
+    if (loading) {
+        return (
+            <Container className="py-4">
             <Card className="shadow-sm border-0">
             <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center">
                 <h4 className="mb-0">{listName}</h4>
                 <div>
-                    <Button className="mx-2">
+                    <Button className="mx-2" disabled>
                         <AddTask listId={listId} />
                     </Button>
                     <Badge bg="light" text="dark" className="fs-6">
-                        {taskList.length} zadań
+                        0 zadań
                     </Badge>
                 </div>
                 
             </Card.Header>
 
             <ListGroup variant="flush">
+                <ListGroup.Item className="text-center text-muted py-5">
+                    Brak zadań do wyświetlenia...
+                </ListGroup.Item>
+            </ListGroup>
+            
+            <Card.Footer className="text-muted small">
+                Zrobione: 0/0
+            </Card.Footer>
+            </Card>
+        </Container>
+        ) 
+    }
+
+    return (
+        <Container className="py-4">
+            <Card className="shadow-sm border-0">
+            <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center">
+                
+                <div className="d-flex align-items-center">
+                    <Button>
+                        
+                    </Button>
+                    <h4 className="mb-0">{listName}</h4>
+                </div>
+                <div className="d-flex align-items-center">
+                    <Button className="mx-1">
+                        <AddTask listId={listId} />
+                    </Button>
+                    <Badge bg="light" text="dark" className="fs-6 mx-1">
+                        {taskList.length} {
+                            taskList.length === 1 ? 'zadanie' : (taskList.length >= 2 && taskList.length <= 4 ? 'zadania' : 'zadań')
+                        }
+                    </Badge>
+                    <DeleteList listId={listId} />
+                </div>
+                
+            </Card.Header>
+
+            <ListGroup variant="flush" style={{overflowY: 'auto', maxHeight: '30rem'}}>
                 {taskList.length === 0 ? (
                 <ListGroup.Item className="text-center text-muted py-5">
                     Brak zadań do wyświetlenia...
                 </ListGroup.Item>
                 ) : (taskList.map((task) => (
-                    <Task key={task.id} {...task} />
+                    <Task key={task.id} {...task} listId={listId} />
                 )))}
             </ListGroup>
             
             <Card.Footer className="text-muted small">
-                Zrobione: {taskList.filter(t => t.completed).length} / {taskList.length}
+                Ukończone: {taskList.filter(t => t.completed).length} / {taskList.length}
             </Card.Footer>
             </Card>
         </Container>
     )
 }
-
 
 export default List
