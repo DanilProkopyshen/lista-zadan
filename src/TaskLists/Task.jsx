@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Card, Form } from 'react-bootstrap'
 import { db } from '../firebase'
 import { getAuth } from 'firebase/auth'
-import { RiCloseFill } from "react-icons/ri";
+import { RiCloseFill } from "react-icons/ri"
 
 function Task({ id, title, desc, completed, listId }) {
     const [taskId, setTaskId] = useState(id)

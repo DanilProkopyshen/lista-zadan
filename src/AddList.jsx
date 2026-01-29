@@ -25,7 +25,7 @@ function AddList() {
         }
 
         try {
-            const userId = auth.currentUser.uid;
+            const userId = auth.currentUser.uid
 
             const userRef = doc(db, "users", userId)
             await setDoc(

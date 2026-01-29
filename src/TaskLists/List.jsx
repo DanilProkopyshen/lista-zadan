@@ -12,7 +12,7 @@ function List({listId, listName}) {
 
     useEffect(() => {
 
-        const userId = auth.currentUser.uid;
+        const userId = auth.currentUser.uid
         const q = query(collection(db, "users", userId, "lists", listId, "tasks"))
 
         const unsubscribe = onSnapshot(

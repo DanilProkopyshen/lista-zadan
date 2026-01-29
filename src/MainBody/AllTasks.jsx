@@ -9,7 +9,7 @@ function AllTasks() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const userId = auth.currentUser.uid;
+    const userId = auth.currentUser.uid
     const q = query(collection(db, "users", userId, "lists"))
 
     const unsubscribe = onSnapshot(

@@ -25,11 +25,11 @@ function RegisterModal() {
     const hasLower = /[a-z]/.test(pwd)
     const hasNumber = /\d/.test(pwd)
     return hasLength && hasUpper && hasLower && hasNumber
-  };
+  }
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  };
+  }
 
   const isEmailValid = validateEmail(email)
   const isPasswordValid = validatePassword(password)
@@ -41,7 +41,7 @@ function RegisterModal() {
     e.preventDefault()
     setError("")
 
-    if (!isFormValid) return;
+    if (!isFormValid) return
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
@@ -53,13 +53,6 @@ function RegisterModal() {
       console.error("Registration error:", err.code, err.message)
       setError(err.message || "Registration failed. Please try again.")
     }
-  }
-
-  const handleReset = () => {
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
-    setError("")
   }
 
   return (

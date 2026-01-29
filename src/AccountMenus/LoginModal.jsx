@@ -53,7 +53,7 @@ function LoginModal() {
 
       <Modal
         show={show}
-        onHide={() => { handleClose(); handleReset(); }}
+        onHide={handleClose}
         backdrop="static"
         keyboard={false}
         centered
@@ -103,7 +103,7 @@ function LoginModal() {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => { handleClose(); handleReset(); }}>
+          <Button variant="secondary" onClick={handleClose}>
             Anuluj
           </Button>
         </Modal.Footer>
