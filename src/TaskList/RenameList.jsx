@@ -1,17 +1,17 @@
+import { getAuth } from "firebase/auth"
+import { doc, setDoc } from "firebase/firestore"
 import { useState } from "react"
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap"
-import { BsPlus } from "react-icons/bs"
-import { auth, db } from "./firebase"
-import { collection, addDoc } from "firebase/firestore"
+import { db } from "../firebase"
 
-function AddList() {
+function RenameList({listId}) {
     const [show, setShow] = useState(false)
-    const [listName, setListName] = useState("")
+    const [newListName, setNewListName] = useState("")
     const [validated, setValidated] = useState(false)
 
     const handleClose = () => {
         setShow(false)
-        setListName("")
+        setNewListName("")
         setValidated(false)
     }
     const handleShow = () => setShow(true)
@@ -19,37 +19,31 @@ function AddList() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!listName.trim()) {
+        if (!newListName.trim()) {
             setValidated(true)
             return
         }
 
         try {
+            const auth = getAuth()
             const userId = auth.currentUser.uid
+            const listRef = doc(db, "users", userId, "lists", listId)
 
-            const listsCollection = collection(db, "users", userId, "lists")
-            const newListRef = await addDoc(listsCollection, {
-                name: listName,
-            })
+            await setDoc(listRef, {name: newListName}, {merge: true})
 
-            console.log("List created with ID:", newListRef.id)
+            console.log(`Renamed list with id ${listId} to ${newListName}`)
 
             handleClose()
-        } catch (error) {
-            console.error("Error creating list:", error)
-        } 
+        } catch(error) {
+            console.log("Error while renaming the list: ", error)
+        }
     }
 
     return (
         <>
-            <Button 
-                variant="primary" 
-                className="w-100 d-flex align-items-center justify-content-center"
-                onClick={handleShow}
-            >
-                <BsPlus className="me-2" />
-                Utwórz listę
-            </Button>
+            <p onClick={handleShow} className="fw-bold align-middle">
+                Zmień nazwę
+            </p>
 
             <Modal
                 show={show}
@@ -59,7 +53,7 @@ function AddList() {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Dodaj nową listę</Modal.Title>
+                    <Modal.Title>Podaj nową nazwę</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -73,19 +67,19 @@ function AddList() {
                                 type="text"
                                 maxLength={20}
                                 placeholder="lista"
-                                value={listName}
-                                onChange={(e) => setListName(e.target.value)}
-                                isInvalid={validated && !listName.trim()}
+                                value={newListName}
+                                onChange={(e) => setNewListName(e.target.value)}
+                                isInvalid={validated && !newListName.trim()}
                                 autoComplete="off"
                             />
                             <Form.Control.Feedback type="invalid">
-                                Nazwa nie może być pusta
+                                Nowa nazwa nie może być pusta
                             </Form.Control.Feedback>
                         </FloatingLabel>
 
                         <div className="d-grid">
                             <Button variant="primary" type="submit" size="lg">
-                                Stwórz listę
+                                Zmień nazwę
                             </Button>
                         </div>
                     </Form>
@@ -101,4 +95,4 @@ function AddList() {
     )
 }
 
-export default AddList
+export default RenameList

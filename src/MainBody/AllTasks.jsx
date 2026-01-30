@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import List from "../TaskLists/List"
+import List from "../TaskList/List"
 import { collection, query, onSnapshot } from "firebase/firestore"
 import { db, auth } from "../firebase"
 import { Spinner } from "react-bootstrap"

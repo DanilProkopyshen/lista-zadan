@@ -2,8 +2,7 @@ import { getAuth } from "firebase/auth"
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore"
 import { useState } from "react"
 import { Button, Modal } from "react-bootstrap"
-import { IoTrashBin } from "react-icons/io5"
-import { db } from "./firebase"
+import { db } from "../firebase"
 
 function DeleteList({ listId }) {
     const [show, setShow] = useState(false)
@@ -35,9 +34,15 @@ function DeleteList({ listId }) {
 
     return (
         <>
-            <Button variant="primary" className="mx-1">
-                <IoTrashBin size={30} onClick={handleShow} title="Usuń listę"/>
-            </Button>
+            <p
+                size={30}
+                onClick={handleShow} 
+                style={{color: "#dc3545"}}
+                className="fw-bold"
+            >
+                Usuń listę
+            </p>
+            
             <Modal
                 show={show}
                 onHide={handleClose}

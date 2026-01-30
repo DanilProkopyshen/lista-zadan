@@ -4,7 +4,7 @@ import Task from "./Task"
 import AddTask from "../AddTask"
 import { auth, db } from "../firebase"
 import { collection, onSnapshot, query } from "firebase/firestore"
-import DeleteList from "../DeleteList"
+import ListOptions from "./ListOptions"
 
 function List({listId, listName}) {
     const [taskList, setTasks] = useState([])
@@ -39,6 +39,8 @@ function List({listId, listName}) {
         return () => unsubscribe()
     }, [])
 
+
+    /******************LOADING STATE******************/
     if (loading) {
         return (
             <Container className="py-4">
@@ -70,44 +72,42 @@ function List({listId, listName}) {
         ) 
     }
 
+    /******************REGULAR STATE******************/
     return (
         <Container className="py-4">
             <Card className="shadow-sm border-0">
-            <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center">
-                
-                <div className="d-flex align-items-center">
-                    <Button>
-                        
-                    </Button>
-                    <h4 className="mb-0">{listName}</h4>
-                </div>
-                <div className="d-flex align-items-center">
-                    <Button className="mx-1">
-                        <AddTask listId={listId} />
-                    </Button>
-                    <Badge bg="light" text="dark" className="fs-6 mx-1">
-                        {taskList.length} {
-                            taskList.length === 1 ? 'zadanie' : (taskList.length >= 2 && taskList.length <= 4 ? 'zadania' : 'zadań')
-                        }
-                    </Badge>
-                    <DeleteList listId={listId} />
-                </div>
-                
-            </Card.Header>
+                <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center">
+                    
+                    <div className="d-flex align-items-center">
+                        <ListOptions listId={listId}/>
+                        <h4 className="mb-0">{listName}</h4>
+                    </div>
+                    <div className="d-flex align-items-center">
+                        <Button className="mx-1">
+                            <AddTask listId={listId} />
+                        </Button>
+                        <Badge bg="light" text="dark" className="fs-6 mx-1">
+                            {taskList.length} {
+                                taskList.length === 1 ? 'zadanie' : (taskList.length >= 2 && taskList.length <= 4 ? 'zadania' : 'zadań')
+                            }
+                        </Badge>
+                    </div>
+                    
+                </Card.Header>
 
-            <ListGroup variant="flush" style={{overflowY: 'auto', maxHeight: '30rem'}}>
-                {taskList.length === 0 ? (
-                <ListGroup.Item className="text-center text-muted py-5">
-                    Brak zadań do wyświetlenia...
-                </ListGroup.Item>
-                ) : (taskList.map((task) => (
-                    <Task key={task.id} {...task} listId={listId} />
-                )))}
-            </ListGroup>
-            
-            <Card.Footer className="text-muted small">
-                Ukończone: {taskList.filter(t => t.completed).length} / {taskList.length}
-            </Card.Footer>
+                <ListGroup variant="flush" style={{overflowY: 'auto', maxHeight: '30rem'}}>
+                    {taskList.length === 0 ? (
+                    <ListGroup.Item className="text-center text-muted py-5">
+                        Brak zadań do wyświetlenia...
+                    </ListGroup.Item>
+                    ) : (taskList.map((task) => (
+                        <Task key={task.id} {...task} listId={listId} />
+                    )))}
+                </ListGroup>
+                
+                <Card.Footer className="text-muted small">
+                    Ukończone: {taskList.filter(t => t.completed).length} / {taskList.length}
+                </Card.Footer>
             </Card>
         </Container>
     )

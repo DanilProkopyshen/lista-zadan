@@ -28,3 +28,14 @@
 #transparentAccordion .accordion-button:not(.collapsed)::after {
   filter: invert(0.5);
 }
+
+.transparent-btn {
+  background-color: transparent !important;
+  color: inherit;
+}
+
+.transparent-btn:hover {
+  background-color: rgba(63, 63, 63, 0.226) !important;
+  border-radius: 4px !important;
+  color: inherit;
+}
