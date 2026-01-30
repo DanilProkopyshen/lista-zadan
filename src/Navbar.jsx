@@ -21,7 +21,7 @@ function AppNavbar({ isSidebarOpen, onToggleSidebar }) {
           </Button>
         )}
 
-        <Navbar.Brand href="#">Listy zadań</Navbar.Brand>
+        <Navbar.Brand>Listy zadań</Navbar.Brand>
       </Container>
     </Navbar>
   )
