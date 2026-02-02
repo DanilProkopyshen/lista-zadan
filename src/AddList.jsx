@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap"
 import { BsPlus } from "react-icons/bs"
 import { auth, db } from "./firebase"
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, doc, setDoc } from "firebase/firestore"
 
 function AddList() {
     const [show, setShow] = useState(false)
@@ -25,11 +25,15 @@ function AddList() {
         }
 
         try {
-            const userId = auth.currentUser.uid
+            const userId = auth?.currentUser.uid
+
+            const userDoc = doc(db, "users", userId)
+            await setDoc(userDoc, {email: auth.currentUser.email}, { merge: true })
 
             const listsCollection = collection(db, "users", userId, "lists")
+
             const newListRef = await addDoc(listsCollection, {
-                name: listName,
+                name: listName
             })
 
             console.log("List created with ID:", newListRef.id)
